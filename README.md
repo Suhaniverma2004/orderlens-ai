@@ -1,4 +1,4 @@
-﻿# OrderLens AI
+# OrderLens AI
 
 **Turn customer feedback into product decisions.**
 
@@ -90,3 +90,17 @@ The AI endpoints depend on the Hatchable runtime and are not expected to run unc
 ## Portfolio context
 
 OrderLens AI is an independent portfolio project demonstrating product discovery, feedback analysis, AI integration, evidence-grounded recommendations, and MVP experiment planning. It is not affiliated with any delivery platform.
+
+## Quality checks
+
+Run the dependency-free automated test suite with Node.js 22 or later:
+
+```bash
+node --test tests/*.test.cjs
+```
+
+The suite exercises request validation, response normalization, batch limits, provider failures, malformed model responses, Copilot evidence filtering, the health route, and frontend/API wiring. AI gateway calls are mocked, so tests do not require or consume a Gemini API key.
+
+GitHub Actions runs these tests and checks API JavaScript syntax on pushes and pull requests to `main`. A green CI run verifies the mocked/unit-test paths; it is not a live Gemini integration test.
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for request flow, trust boundaries, and deployment limitations.

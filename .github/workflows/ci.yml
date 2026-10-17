@@ -1,0 +1,30 @@
+name: OrderLens quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: API and frontend smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run automated tests
+        run: node --test tests/*.test.cjs
+      - name: Check API JavaScript syntax
+        run: |
+          node --check api/analyze-feedback.js
+          node --check api/copilot.js
+          node --check api/health-check.js
